@@ -1,1 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quiz Game</title>
+  <style>
+    body {
+      font-family: Arial;
+      background-color: #f2f2f2;
+      text-align: center;
+    }
+    .question {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    .options {
+      margin: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      margin-top: 15px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
 
+  <h2>Simple Quiz Game</h2>
+  <div id="quiz-container">
+    <div class="question" id="question"></div>
+    <div class="options">
+      <button id="opt1" onclick="checkAnswer(this)"></button><br>
+      <button id="opt2" onclick="checkAnswer(this)"></button><br>
+      <button id="opt3" onclick="checkAnswer(this)"></button><br>
+      <button id="opt4" onclick="checkAnswer(this)"></button>
+    </div>
+    <h3 id="result"></h3>
+  </div>
+
+  <script>
+    // Questions list
+    const quiz = [
+      {
+        question: "What is the capital of India?",
+        options: ["Mumbai", "Delhi", "Kolkata", "Chennai"],
+        answer: "Delhi"
+      },
+      {
+        question: "HTML stands for?",
+        options: ["HighText Machine Language", "HyperText Markup Language", "HyperText Markdown Language", "None"],
+        answer: "HyperText Markup Language"
+      },
+      {
+        question: "CSS is used for?",
+        options: ["Styling", "Programming", "Database", "None"],
+        answer: "Styling"
+      }
+    ];
+
+    let index = 0;
+    let question = document.getElementById("question");
+    let opt1 = document.getElementById("opt1");
+    let opt2 = document.getElementById("opt2");
+    let opt3 = document.getElementById("opt3");
+    let opt4 = document.getElementById("opt4");
+    let result = document.getElementById("result");
+
+    function loadQuestion() {
+      let q = quiz[index];
+      question.innerText = q.question;
+      opt1.innerText = q.options[0];
+      opt2.innerText = q.options[1];
+      opt3.innerText = q.options[2];
+      opt4.innerText = q.options[3];
+      result.innerText = "";
+    }
+
+    function checkAnswer(btn) {
+      if (btn.innerText === quiz[index].answer) {
+        result.innerText = "✅ Correct!";
+      } else {
+        result.innerText = "❌ Wrong! Correct answer: " + quiz[index].answer;
+      }
+      index++;
+      if (index < quiz.length) {
+        setTimeout(loadQuestion, 1000);
+      } else {
+        setTimeout(() => {
+          question.innerText = "Quiz Completed 🎉";
+          document.querySelector(".options").style.display = "none";
+        }, 1000);
+      }
+    }
+
+    loadQuestion();
+  </script>
+
+</body>
+</html>
